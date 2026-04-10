@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Forensics - Image Detection</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f7fb;
+            color: #222;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 10px;
+            color: #1e3a8a;
+        }
+
+        .subtitle {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #555;
+        }
+
+        .upload-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        input[type="file"] {
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background: #fafafa;
+        }
+
+        button {
+            padding: 12px 18px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        .error {
+            margin-top: 15px;
+            padding: 12px;
+            background: #fee2e2;
+            color: #b91c1c;
+            border-radius: 10px;
+        }
+
+        .result-box {
+            margin-top: 30px;
+            padding: 20px;
+            background: #eff6ff;
+            border-left: 6px solid #2563eb;
+            border-radius: 12px;
+        }
+
+        .result-box h2 {
+            margin-bottom: 15px;
+            color: #1d4ed8;
+        }
+
+        .result-item {
+            margin: 10px 0;
+            font-size: 16px;
+        }
+
+        .table-wrapper {
+            margin-top: 25px;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        table th, table td {
+            border: 1px solid #dbeafe;
+            padding: 12px;
+            text-align: left;
+        }
+
+        table th {
+            background: #dbeafe;
+            color: #1e3a8a;
+        }
+
+        table tr:nth-child(even) {
+            background: #f8fbff;
+        }
+
+        .note {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #666;
+            text-align: center;
+        }
+
+        .preview-box {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .preview-box img {
+            max-width: 300px;
+            max-height: 300px;
+            border-radius: 12px;
+            border: 1px solid #ddd;
+            display: none;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>AI-Powered Image Forensics</h1>
+    <p class="subtitle">Upload an image to detect whether it is real, GAN-generated, deepfake, or edited.</p>
+
+    <form class="upload-form" th:action="@{/predict}" method="post" enctype="multipart/form-data">
+        <input type="file" id="fileInput" name="file" accept="image/*" required>
+        <button type="submit">Analyze Image</button>
+    </form>
+
+    <div class="preview-box">
+        <img id="imagePreview" alt="Selected image preview">
+    </div>
+
+    <div th:if="${error}" class="error">
+        <span th:text="${error}"></span>
+    </div>
+
+    <div th:if="${predictedClass}" class="result-box">
+        <h2>Prediction Result</h2>
+        <p class="result-item"><strong>Predicted Class:</strong> <span th:text="${predictedClass}"></span></p>
+        <p class="result-item"><strong>Confidence:</strong> <span th:text="${confidence}"></span>%</p>
+        <p class="result-item"><strong>Predicted Index:</strong> <span th:text="${predictedIndex}"></span></p>
+        <p class="result-item"><strong>Total Classes:</strong> <span th:text="${numClasses}"></span></p>
+    </div>
+
+    <div th:if="${allPredictions}" class="table-wrapper">
+        <h2>All Class Probabilities</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Class</th>
+                    <th>Probability (%)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="entry : ${allPredictions}">
+                    <td th:text="${entry.key}"></td>
+                    <td th:text="${entry.value}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <p class="note">
+        Supported classes: deepfake, edited, gan, real
+    </p>
+</div>
+
+<script>
+    const fileInput = document.getElementById("fileInput");
+    const imagePreview = document.getElementById("imagePreview");
+
+    fileInput.addEventListener("change", function () {
+        const file = this.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                imagePreview.src = e.target.result;
+                imagePreview.style.display = "block";
+            };
+            reader.readAsDataURL(file);
+        } else {
+            imagePreview.style.display = "none";
+        }
+    });
+</script>
+
+</body>
+</html>

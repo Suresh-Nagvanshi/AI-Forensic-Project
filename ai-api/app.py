@@ -4,6 +4,7 @@ import numpy as np
 from flask import Flask, request, jsonify
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing import image
+from tensorflow.keras.applications.efficientnet import preprocess_input
 from PIL import Image
 
 app = Flask(__name__)
@@ -26,7 +27,7 @@ def preprocess_image(img_path):
     img = Image.open(img_path).convert("RGB")
     img = img.resize(IMG_SIZE)
     img_array = image.img_to_array(img)
-    img_array = img_array / 255.0
+    img_array = preprocess_input(img_array)
     img_array = np.expand_dims(img_array, axis=0)
     return img_array
 
@@ -51,15 +52,30 @@ def predict():
 
     try:
         processed_image = preprocess_image(file_path)
-        predictions = model.predict(processed_image)
-        predicted_index = int(np.argmax(predictions[0]))
-        confidence = float(np.max(predictions[0]))
+        predictions = model.predict(processed_image)[0].tolist()
 
-        predicted_class = class_names[predicted_index] if isinstance(class_names, list) else class_names[str(predicted_index)]
+        predicted_index = int(np.argmax(predictions))
+        confidence = float(np.max(predictions))
+
+        if isinstance(class_names, list):
+            predicted_class = class_names[predicted_index]
+            all_predictions = {
+                class_names[i]: round(float(predictions[i]) * 100, 2)
+                for i in range(len(class_names))
+            }
+        else:
+            predicted_class = class_names[str(predicted_index)]
+            all_predictions = {
+                class_names[str(i)]: round(float(predictions[i]) * 100, 2)
+                for i in range(len(predictions))
+            }
 
         return jsonify({
             "predicted_class": predicted_class,
-            "confidence": round(confidence * 100, 2)
+            "confidence": round(confidence * 100, 2),
+            "all_predictions": all_predictions,
+            "predicted_index": predicted_index,
+            "num_classes": len(predictions)
         })
 
     except Exception as e:

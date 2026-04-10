@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Result</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="/css/style.css">
+</head>
+<body>
+<main class="page">
+    <section class="card">
+        <h1>Prediction Result</h1>
+        <p><strong>Predicted Class:</strong> <span th:text="${predictedClass}">Unknown</span></p>
+        <p><strong>Confidence:</strong> <span th:text="${confidence}">0</span>%</p>
+        <a class="button-link" th:href="@{/}" href="/">Analyze another image</a>
+    </section>
+</main>
+</body>
+</html>
