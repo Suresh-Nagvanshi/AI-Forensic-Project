@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# AI model and generated files
+ai-api/model/*.keras
+ai-api/uploads/
+ai-api/temp/
+
+# Java
+target/
+*.class
+
+# VS Code
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
