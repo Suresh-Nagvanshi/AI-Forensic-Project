@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="seoHead(pageTitle, pageDescription, canonicalUrl, ogType, ogImage, pageClass)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title th:text="${pageTitle}">AI Forensic</title>
+    <meta name="description" th:content="${pageDescription}">
+    <link rel="canonical" th:href="${canonicalUrl}">
+
+    <meta property="og:type" th:content="${ogType}">
+    <meta property="og:title" th:content="${pageTitle}">
+    <meta property="og:description" th:content="${pageDescription}">
+    <meta property="og:url" th:content="${canonicalUrl}">
+    <meta property="og:image" th:content="${ogImage}">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" th:content="${pageTitle}">
+    <meta name="twitter:description" th:content="${pageDescription}">
+    <meta name="twitter:image" th:content="${ogImage}">
+
+    <link rel="icon" type="image/png" th:href="@{/favicon/favicon.png}">
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <link rel="stylesheet" th:href="@{/css/landing.css}">
+    <script defer th:src="@{/js/main.js}"></script>
+</head>
+</html>

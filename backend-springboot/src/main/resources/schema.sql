@@ -1,0 +1,1 @@
+-- Optional schema bootstrap placeholder.

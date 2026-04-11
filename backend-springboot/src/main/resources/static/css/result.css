@@ -1,0 +1,54 @@
+.upload-form {
+    display: grid;
+    gap: 16px;
+    margin-top: 24px;
+}
+
+.upload-label {
+    font-weight: 600;
+}
+
+input[type="file"] {
+    padding: 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 16px;
+    background: #ffffff;
+}
+
+.preview-box {
+    margin-top: 24px;
+}
+
+.preview-box img {
+    width: min(100%, 340px);
+    border-radius: 18px;
+    border: 1px solid #dbeafe;
+    display: none;
+}
+
+.table-wrapper {
+    margin-top: 24px;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 14px 16px;
+    border-bottom: 1px solid #e2e8f0;
+    text-align: left;
+}
+
+th {
+    color: #0f172a;
+    background: #f8fafc;
+}
+
+.divider {
+    margin: 0 10px;
+    color: #94a3b8;
+}

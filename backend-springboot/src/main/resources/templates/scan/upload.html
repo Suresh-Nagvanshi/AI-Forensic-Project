@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Forensic Scan Upload</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}" href="/css/main.css">
+    <link rel="stylesheet" th:href="@{/css/result.css}" href="/css/result.css">
+</head>
+<body>
+<main class="scan-shell">
+    <section class="hero-panel">
+        <p class="eyebrow">AI Forensic Platform</p>
+        <h1>Upload an image and inspect forensic confidence in seconds.</h1>
+        <p class="hero-copy">
+            This scan workspace routes images to the Flask inference API and returns class confidence
+            across your trained model labels.
+        </p>
+        <form class="upload-form" th:action="@{/scan/predict}" method="post" enctype="multipart/form-data">
+            <label class="upload-label" for="fileInput">Choose an image</label>
+            <input type="file" id="fileInput" name="file" accept="image/*" required>
+            <button type="submit">Analyze Image</button>
+        </form>
+
+        <div class="preview-box">
+            <img id="imagePreview" alt="Selected image preview">
+        </div>
+
+        <p th:if="${error}" class="error" th:text="${error}"></p>
+    </section>
+</main>
+<script th:src="@{/js/upload.js}" src="/js/upload.js"></script>
+</body>
+</html>

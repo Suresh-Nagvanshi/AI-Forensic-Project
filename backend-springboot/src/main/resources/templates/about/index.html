@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/base}">
+<body>
+<section layout:fragment="content" class="about-page">
+
+    <section class="page-hero page-hero-narrow">
+        <div class="container">
+            <p class="eyebrow">About AI Forensic</p>
+            <h1>AI-assisted image analysis for deepfake and manipulation screening.</h1>
+            <p class="page-intro">
+                AI Forensic is designed to help users review suspicious images by classifying them into deepfake, edited,
+                GAN-generated, or real categories through an AI-assisted screening workflow.
+            </p>
+        </div>
+    </section>
+
+    <section class="about-overview">
+        <div class="container two-column-grid">
+            <div>
+                <h2>What the platform does</h2>
+                <p>
+                    The system allows users to upload an image, run it through a forensic classification pipeline,
+                    and review a structured output that includes the predicted label, confidence,
+                    and supporting probability breakdown.
+                </p>
+                <p>
+                    The goal is to make media screening faster and more accessible through a web-based interface
+                    backed by a Spring Boot application and a dedicated AI inference service.
+                </p>
+            </div>
+
+            <div>
+                <h2>What it is not</h2>
+                <p>
+                    AI Forensic should not be treated as a final legal, journalistic, or forensic authority by itself.
+                    The platform is intended as a decision-support tool that helps identify suspicious patterns for follow-up review.
+                </p>
+                <p>
+                    If a result is uncertain or potentially high-impact, it should be verified through additional forensic checks,
+                    contextual review, or human investigation.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="about-values">
+        <div class="container">
+            <div class="section-heading">
+                <p class="eyebrow">Why this matters</p>
+                <h2>Built around transparency and responsible use</h2>
+                <p>
+                    Deepfake and image-manipulation systems can be helpful, but they must also communicate their limits clearly.
+                </p>
+            </div>
+
+            <div class="value-grid">
+                <article class="value-card">
+                    <h3>Transparent outputs</h3>
+                    <p>
+                        The platform is designed to show clear prediction information rather than hiding model behavior
+                        behind a single unexplained label.
+                    </p>
+                </article>
+
+                <article class="value-card">
+                    <h3>Review-aware design</h3>
+                    <p>
+                        Results should support triage and investigation, especially when the output suggests uncertainty
+                        or conflicting class signals.
+                    </p>
+                </article>
+
+                <article class="value-card">
+                    <h3>Practical web deployment</h3>
+                    <p>
+                        The product combines SEO-friendly public pages with a protected scanning workflow so it can function
+                        as both a usable tool and a deployable platform.
+                    </p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="about-process">
+        <div class="container">
+            <div class="section-heading">
+                <p class="eyebrow">Workflow</p>
+                <h2>How the platform works</h2>
+            </div>
+
+            <div class="timeline-grid">
+                <article class="timeline-card">
+                    <span class="timeline-step">01</span>
+                    <h3>User uploads an image</h3>
+                    <p>
+                        A signed-in user submits an image through the protected application workflow.
+                    </p>
+                </article>
+
+                <article class="timeline-card">
+                    <span class="timeline-step">02</span>
+                    <h3>Inference service processes it</h3>
+                    <p>
+                        The backend sends the image to the AI inference layer, which applies preprocessing
+                        and predicts the most likely class.
+                    </p>
+                </article>
+
+                <article class="timeline-card">
+                    <span class="timeline-step">03</span>
+                    <h3>Result is interpreted for review</h3>
+                    <p>
+                        The result page can present confidence, class probabilities, and safer wording such as
+                        likely or uncertain instead of overconfident claims.
+                    </p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="about-disclaimer">
+        <div class="container disclaimer-panel">
+            <p class="eyebrow">Important note</p>
+            <h2>AI output should be reviewed responsibly.</h2>
+            <p>
+                Deepfake-related systems can produce false positives or false negatives, so results should be treated
+                as screening indicators rather than final truth statements.
+            </p>
+            <p>
+                The platform is best used as a first-pass review tool before stronger verification,
+                investigation, or human decision-making.
+            </p>
+        </div>
+    </section>
+
+    <section class="about-cta">
+        <div class="container cta-panel">
+            <div>
+                <p class="eyebrow">Explore the platform</p>
+                <h2>Sign in to try the scan workflow or contact us to learn more.</h2>
+            </div>
+            <div class="cta-actions">
+                <a th:href="@{/login}" class="btn btn-primary">Sign in</a>
+                <a th:href="@{/contact}" class="btn btn-secondary">Contact us</a>
+            </div>
+        </div>
+    </section>
+
+</section>
+</body>
+</html>

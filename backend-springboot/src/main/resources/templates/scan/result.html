@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Forensic Scan Result</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}" href="/css/main.css">
+    <link rel="stylesheet" th:href="@{/css/result.css}" href="/css/result.css">
+</head>
+<body>
+<main class="scan-shell">
+    <section class="result-card">
+        <p class="eyebrow">Scan Result</p>
+        <h1 th:text="${predictedClass}">Unknown</h1>
+        <p class="hero-copy">
+            Confidence: <strong th:text="${confidence}">0</strong>%
+        </p>
+        <p class="result-meta">
+            Predicted index: <span th:text="${predictedIndex}">0</span>
+            <span class="divider">|</span>
+            Total classes: <span th:text="${numClasses}">0</span>
+        </p>
+
+        <section class="table-wrapper" th:if="${allPredictions}">
+            <h2>All class probabilities</h2>
+            <table>
+                <thead>
+                <tr>
+                    <th>Class</th>
+                    <th>Probability (%)</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="entry : ${allPredictions}">
+                    <td th:text="${entry.key}">class</td>
+                    <td th:text="${entry.value}">0</td>
+                </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <div class="actions">
+            <a class="button-link" th:href="@{/scan/upload}" href="/scan/upload">Analyze another image</a>
+            <a class="button-link secondary" th:href="@{/home}" href="/home">View platform home</a>
+        </div>
+    </section>
+</main>
+</body>
+</html>

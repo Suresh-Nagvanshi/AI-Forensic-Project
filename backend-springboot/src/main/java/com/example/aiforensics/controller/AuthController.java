@@ -1,4 +1,5 @@
 package com.example.aiforensics.controller;
 
-public class PredictionController {
+public class AuthController {
+    
 }

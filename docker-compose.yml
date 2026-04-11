@@ -1,0 +1,10 @@
+version: "3.9"
+
+services:
+  backend:
+    image: ai-forensic-backend
+    profiles: ["placeholder"]
+
+  ai-api:
+    image: ai-forensic-ai-api
+    profiles: ["placeholder"]

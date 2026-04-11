@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/base}">
+
+<section layout:fragment="content" class="landing-page">
+
+    <div th:with="
+        pageTitle='AI Forensic | Detect Deepfake, Edited, GAN and Real Images',
+        pageDescription='AI Forensic helps users analyze uploaded images for deepfake, edited, GAN-generated, or real-media patterns using AI-assisted forensic screening.',
+        canonicalUrl=@{http://localhost:8080/},
+        ogType='website',
+        ogImage=@{/images/seo/og-home.jpg},
+        pageClass='page-home'
+    "></div>
+
+    <section class="hero-section">
+        <div class="container hero-grid">
+            <div class="hero-copy">
+                <p class="eyebrow">AI-assisted image screening</p>
+                <h1>Detect manipulated images with a faster forensic review workflow.</h1>
+                <p class="hero-text">
+                    Upload an image and get an AI-based classification across deepfake, edited, GAN-generated, and real categories.
+                    Built as a review-support tool for safer media analysis and faster triage.
+                </p>
+
+                <div class="hero-actions">
+                    <a th:href="@{/login}" class="btn btn-primary">Start scanning</a>
+                    <a th:href="@{/about}" class="btn btn-secondary">Learn how it works</a>
+                </div>
+
+                <ul class="hero-points" role="list">
+                    <li>Server-rendered pages for better SEO and faster first load.</li>
+                    <li>AI-assisted screening for suspicious visual content.</li>
+                    <li>Designed for review workflows, not blind final verdicts.</li>
+                </ul>
+            </div>
+
+            <div class="hero-card">
+                <div class="result-preview-card">
+                    <div class="result-preview-header">
+                        <span class="status-dot"></span>
+                        <span>Latest scan preview</span>
+                    </div>
+
+                    <div class="preview-image-shell">
+                        <div class="skeleton-block image-skeleton"></div>
+                    </div>
+
+                    <div class="result-preview-body">
+                        <div class="label-row">
+                            <span class="label-key">Model output</span>
+                            <span class="label-value">Likely deepfake</span>
+                        </div>
+                        <div class="label-row">
+                            <span class="label-key">Confidence</span>
+                            <span class="label-value">76.47%</span>
+                        </div>
+                        <div class="label-row">
+                            <span class="label-key">Status</span>
+                            <span class="label-value warning">Review recommended</span>
+                        </div>
+
+                        <div class="probability-bars">
+                            <div class="prob-item">
+                                <div class="prob-label"><span>Deepfake</span><span>76%</span></div>
+                                <div class="prob-track"><div class="prob-fill fill-76"></div></div>
+                            </div>
+                            <div class="prob-item">
+                                <div class="prob-label"><span>Edited</span><span>20%</span></div>
+                                <div class="prob-track"><div class="prob-fill fill-20"></div></div>
+                            </div>
+                            <div class="prob-item">
+                                <div class="prob-label"><span>GAN</span><span>3%</span></div>
+                                <div class="prob-track"><div class="prob-fill fill-03"></div></div>
+                            </div>
+                            <div class="prob-item">
+                                <div class="prob-label"><span>Real</span><span>1%</span></div>
+                                <div class="prob-track"><div class="prob-fill fill-01"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="trust-section">
+        <div class="container trust-grid">
+            <article class="trust-card">
+                <h2>Built for review</h2>
+                <p>
+                    The platform is designed to support image screening and manual review, especially when the model sees deepfake-like or edited patterns.
+                </p>
+            </article>
+
+            <article class="trust-card">
+                <h2>Transparent outputs</h2>
+                <p>
+                    Instead of hiding the prediction, the system can surface class probabilities, confidence, and uncertainty-aware wording for better interpretation.
+                </p>
+            </article>
+
+            <article class="trust-card">
+                <h2>Practical workflow</h2>
+                <p>
+                    Use it as a first-pass triage system for suspicious media before deeper forensic verification or human review.
+                </p>
+            </article>
+        </div>
+    </section>
+
+    <section class="features-section">
+        <div class="container">
+            <div class="section-heading">
+                <p class="eyebrow">Core capabilities</p>
+                <h2>What the platform covers</h2>
+                <p>
+                    The website combines public-facing product pages with a protected AI scanning workflow for authenticated users.
+                </p>
+            </div>
+
+            <div class="feature-layout">
+                <article class="feature-panel feature-panel-large">
+                    <h3>Image analysis workflow</h3>
+                    <p>
+                        Authenticated users can upload images, trigger inference, and review results through a structured scan-to-result flow.
+                    </p>
+                    <a th:href="@{/login}" class="text-link">Open the app</a>
+                </article>
+
+                <article class="feature-panel">
+                    <h3>Deepfake and edit screening</h3>
+                    <p>
+                        The model is designed to classify images into deepfake, edited, GAN-generated, or real categories.
+                    </p>
+                </article>
+
+                <article class="feature-panel">
+                    <h3>SEO-friendly website foundation</h3>
+                    <p>
+                        Public pages are server-rendered so search engines can index useful content without depending on client-side rendering.
+                    </p>
+                </article>
+
+                <article class="feature-panel">
+                    <h3>Account-based usage</h3>
+                    <p>
+                        Planned sign-in, sign-up, session management, and Google login support make the product ready for multi-user deployment.
+                    </p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="how-section">
+        <div class="container how-grid">
+            <div class="section-heading">
+                <p class="eyebrow">How it works</p>
+                <h2>Simple scan flow</h2>
+            </div>
+
+            <div class="how-steps">
+                <article class="step-card">
+                    <span class="step-index">01</span>
+                    <h3>Upload image</h3>
+                    <p>Submit an image for AI-assisted forensic screening through the protected scan flow.</p>
+                </article>
+
+                <article class="step-card">
+                    <span class="step-index">02</span>
+                    <h3>Run inference</h3>
+                    <p>The Spring Boot app sends the image to the Flask inference API and receives class probabilities.</p>
+                </article>
+
+                <article class="step-card">
+                    <span class="step-index">03</span>
+                    <h3>Review result</h3>
+                    <p>Users see the likely label, confidence, and review guidance instead of an overconfident hard verdict.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="container cta-panel">
+            <div>
+                <p class="eyebrow">Ready to try it?</p>
+                <h2>Start with a secure sign-in and scan your first image.</h2>
+            </div>
+            <div class="cta-actions">
+                <a th:href="@{/signup}" class="btn btn-primary">Create account</a>
+                <a th:href="@{/login}" class="btn btn-secondary">Sign in</a>
+            </div>
+        </div>
+    </section>
+
+</section>
+</html>

@@ -3,6 +3,7 @@ __pycache__/
 *.pyc
 .venv/
 venv/
+ai-api/.env
 
 # AI model and generated files
 ai-api/model/*.keras
@@ -11,7 +12,12 @@ ai-api/temp/
 
 # Java
 target/
+backend-springboot/target/
 *.class
+.env
+
+# Placeholder keepers
+!.gitkeep
 
 # VS Code
 .vscode/

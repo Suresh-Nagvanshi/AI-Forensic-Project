@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/base}">
+
+<head>
+    <title>Feedback | AI Forensic</title>
+</head>
+
+<body>
+
+<section layout:fragment="content" class="feedback-page">
+
+    <section class="page-hero page-hero-narrow">
+        <div class="container">
+            <p class="eyebrow">Feedback</p>
+            <h1>Share your experience with AI Forensic.</h1>
+            <p class="page-intro">
+                Tell us what worked well, what felt unclear, and what we should improve in the scanning experience.
+            </p>
+        </div>
+    </section>
+
+    <section class="feedback-main">
+        <div class="container feedback-grid">
+            <div class="feedback-copy">
+                <h2>Why feedback matters</h2>
+                <p>
+                    Your feedback helps improve result clarity, UI flow, page structure, and the way model outputs are explained.
+                </p>
+                <p>
+                    Since the platform is designed for review and screening, user input is especially useful for refining trust,
+                    usability, and interpretation guidance.
+                </p>
+
+                <div class="feedback-points">
+                    <article class="feedback-point">
+                        <h3>UI clarity</h3>
+                        <p>Tell us if any page felt confusing or hard to follow.</p>
+                    </article>
+
+                    <article class="feedback-point">
+                        <h3>Result wording</h3>
+                        <p>Share whether prediction labels and confidence text felt understandable.</p>
+                    </article>
+
+                    <article class="feedback-point">
+                        <h3>Feature requests</h3>
+                        <p>Suggest ideas for upload flow, history, dashboard, or report export improvements.</p>
+                    </article>
+                </div>
+            </div>
+
+            <div class="feedback-form-wrap">
+                <div class="form-card">
+                    <h2>Send feedback</h2>
+                    <p>We read every message and use it to improve the platform.</p>
+
+                    <div class="alert alert-success"
+                         th:if="${successMessage}"
+                         th:text="${successMessage}">
+                    </div>
+
+                    <form th:action="@{/feedback}"
+                          th:object="${feedbackRequest}"
+                          method="post"
+                          class="feedback-form">
+
+                        <div class="form-group">
+                            <label for="name">Your name</label>
+                            <input id="name"
+                                   type="text"
+                                   th:field="*{name}"
+                                   placeholder="Enter your name"
+                                   required>
+                            <p class="field-error"
+                               th:if="${#fields.hasErrors('name')}"
+                               th:errors="*{name}"></p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email address</label>
+                            <input id="email"
+                                   type="email"
+                                   th:field="*{email}"
+                                   placeholder="Enter your email"
+                                   required>
+                            <p class="field-error"
+                               th:if="${#fields.hasErrors('email')}"
+                               th:errors="*{email}"></p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="rating">Rating</label>
+                            <select id="rating"
+                                    th:field="*{rating}"
+                                    required>
+                                <option value="" disabled selected>Select rating</option>
+                                <option value="5">5 - Excellent</option>
+                                <option value="4">4 - Good</option>
+                                <option value="3">3 - Average</option>
+                                <option value="2">2 - Needs improvement</option>
+                                <option value="1">1 - Poor</option>
+                            </select>
+                            <p class="field-error"
+                               th:if="${#fields.hasErrors('rating')}"
+                               th:errors="*{rating}"></p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">Your feedback</label>
+                            <textarea id="message"
+                                      th:field="*{message}"
+                                      rows="6"
+                                      placeholder="Write your feedback here"
+                                      required></textarea>
+                            <p class="field-error"
+                               th:if="${#fields.hasErrors('message')}"
+                               th:errors="*{message}"></p>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Submit feedback</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="feedback-trust">
+        <div class="container trust-grid">
+            <article class="trust-card">
+                <h2>Quick input</h2>
+                <p>Feedback should take only a minute, so users can share thoughts without friction.</p>
+            </article>
+
+            <article class="trust-card">
+                <h2>Product improvement</h2>
+                <p>Small comments can help shape better label explanations, layout clarity, and scan history design.</p>
+            </article>
+
+            <article class="trust-card">
+                <h2>Better trust</h2>
+                <p>A clear feedback channel makes the site feel more complete and more ready for real deployment.</p>
+            </article>
+        </div>
+    </section>
+
+</section>
+
+</body>
+</html>
