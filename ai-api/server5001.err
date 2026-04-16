@@ -1,0 +1,46 @@
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1776313355.779817   14348 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1776313358.841300   14348 port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+WARNING:tensorflow:From C:\Users\iamsu\AppData\Roaming\Python\Python313\site-packages\tf_keras\src\losses.py:2976: The name tf.losses.sparse_softmax_cross_entropy is deprecated. Please use tf.compat.v1.losses.sparse_softmax_cross_entropy instead.
+
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on http://127.0.0.1:5001
+Press CTRL+C to quit
+127.0.0.1 - - [16/Apr/2026 09:53:19] "GET /health HTTP/1.1" 200 -
+Traceback (most recent call last):
+  File "C:\Users\iamsu\OneDrive\Desktop\AI_Forensic_Project\ai-api\app.py", line 106, in predict
+    heatmap = make_gradcam_heatmap(
+        heatmap_input,
+        model,
+        pred_index=prediction_result["pred_index"]
+    )
+  File "C:\Users\iamsu\OneDrive\Desktop\AI_Forensic_Project\ai-api\services\gradcam.py", line 43, in make_gradcam_heatmap
+    grad_model = _build_gradcam_model(model)
+  File "C:\Users\iamsu\OneDrive\Desktop\AI_Forensic_Project\ai-api\services\gradcam.py", line 35, in _build_gradcam_model
+    return tf.keras.models.Model(
+           ~~~~~~~~~~~~~~~~~~~~~^
+        inputs=model.inputs,
+        ^^^^^^^^^^^^^^^^^^^^
+        outputs=[target_layer.output, model.output],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\iamsu\AppData\Roaming\Python\Python313\site-packages\keras\src\utils\tracking.py", line 27, in wrapper
+    return fn(*args, **kwargs)
+  File "C:\Users\iamsu\AppData\Roaming\Python\Python313\site-packages\keras\src\models\functional.py", line 136, in __init__
+    Function.__init__(self, inputs, outputs, name=name)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\iamsu\AppData\Roaming\Python\Python313\site-packages\keras\src\ops\function.py", line 90, in __init__
+    self._run_through_graph(
+    ~~~~~~~~~~~~~~~~~~~~~~~^
+        [None] * len(self._inputs), call_fn=empty_op_outputs
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\iamsu\AppData\Roaming\Python\Python313\site-packages\keras\src\ops\function.py", line 221, in _run_through_graph
+    raise ValueError(
+        f"Output with path `{path}` is not connected to `inputs`"
+    )
+ValueError: Output with path `0` is not connected to `inputs`
+127.0.0.1 - - [16/Apr/2026 09:53:35] "POST /predict HTTP/1.1" 200 -

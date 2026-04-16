@@ -25,3 +25,5 @@ backend-springboot/target/
 # OS files
 .DS_Store
 Thumbs.db
+
+backend-springboot/src/main/resources/application.properties

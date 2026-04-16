@@ -1,20 +1,7 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/base}">
-
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/base}">
+<body>
 <section layout:fragment="content" class="landing-page">
-
-    <div th:with="
-        pageTitle='AI Forensic | Detect Deepfake, Edited, GAN and Real Images',
-        pageDescription='AI Forensic helps users analyze uploaded images for deepfake, edited, GAN-generated, or real-media patterns using AI-assisted forensic screening.',
-        canonicalUrl=@{http://localhost:8080/},
-        ogType='website',
-        ogImage=@{/images/seo/og-home.jpg},
-        pageClass='page-home'
-    "></div>
-
     <section class="hero-section">
         <div class="container hero-grid">
             <div class="hero-copy">
@@ -63,22 +50,10 @@
                         </div>
 
                         <div class="probability-bars">
-                            <div class="prob-item">
-                                <div class="prob-label"><span>Deepfake</span><span>76%</span></div>
-                                <div class="prob-track"><div class="prob-fill fill-76"></div></div>
-                            </div>
-                            <div class="prob-item">
-                                <div class="prob-label"><span>Edited</span><span>20%</span></div>
-                                <div class="prob-track"><div class="prob-fill fill-20"></div></div>
-                            </div>
-                            <div class="prob-item">
-                                <div class="prob-label"><span>GAN</span><span>3%</span></div>
-                                <div class="prob-track"><div class="prob-fill fill-03"></div></div>
-                            </div>
-                            <div class="prob-item">
-                                <div class="prob-label"><span>Real</span><span>1%</span></div>
-                                <div class="prob-track"><div class="prob-fill fill-01"></div></div>
-                            </div>
+                            <div class="prob-item"><div class="prob-label"><span>Deepfake</span><span>76%</span></div><div class="prob-track"><div class="prob-fill fill-76"></div></div></div>
+                            <div class="prob-item"><div class="prob-label"><span>Edited</span><span>20%</span></div><div class="prob-track"><div class="prob-fill fill-20"></div></div></div>
+                            <div class="prob-item"><div class="prob-label"><span>GAN</span><span>3%</span></div><div class="prob-track"><div class="prob-fill fill-03"></div></div></div>
+                            <div class="prob-item"><div class="prob-label"><span>Real</span><span>1%</span></div><div class="prob-track"><div class="prob-fill fill-01"></div></div></div>
                         </div>
                     </div>
                 </div>
@@ -90,23 +65,15 @@
         <div class="container trust-grid">
             <article class="trust-card">
                 <h2>Built for review</h2>
-                <p>
-                    The platform is designed to support image screening and manual review, especially when the model sees deepfake-like or edited patterns.
-                </p>
+                <p>The platform is designed to support image screening and manual review, especially when the model sees deepfake-like or edited patterns.</p>
             </article>
-
             <article class="trust-card">
                 <h2>Transparent outputs</h2>
-                <p>
-                    Instead of hiding the prediction, the system can surface class probabilities, confidence, and uncertainty-aware wording for better interpretation.
-                </p>
+                <p>Instead of hiding the prediction, the system can surface class probabilities, confidence, and uncertainty-aware wording for better interpretation.</p>
             </article>
-
             <article class="trust-card">
                 <h2>Practical workflow</h2>
-                <p>
-                    Use it as a first-pass triage system for suspicious media before deeper forensic verification or human review.
-                </p>
+                <p>Use it as a first-pass triage system for suspicious media before deeper forensic verification or human review.</p>
             </article>
         </div>
     </section>
@@ -116,39 +83,26 @@
             <div class="section-heading">
                 <p class="eyebrow">Core capabilities</p>
                 <h2>What the platform covers</h2>
-                <p>
-                    The website combines public-facing product pages with a protected AI scanning workflow for authenticated users.
-                </p>
+                <p>The website combines public-facing product pages with a protected AI scanning workflow for authenticated users.</p>
             </div>
 
             <div class="feature-layout">
                 <article class="feature-panel feature-panel-large">
                     <h3>Image analysis workflow</h3>
-                    <p>
-                        Authenticated users can upload images, trigger inference, and review results through a structured scan-to-result flow.
-                    </p>
+                    <p>Authenticated users can upload images, trigger inference, and review results through a structured scan-to-result flow.</p>
                     <a th:href="@{/login}" class="text-link">Open the app</a>
                 </article>
-
                 <article class="feature-panel">
                     <h3>Deepfake and edit screening</h3>
-                    <p>
-                        The model is designed to classify images into deepfake, edited, GAN-generated, or real categories.
-                    </p>
+                    <p>The model is designed to classify images into deepfake, edited, GAN-generated, or real categories.</p>
                 </article>
-
                 <article class="feature-panel">
                     <h3>SEO-friendly website foundation</h3>
-                    <p>
-                        Public pages are server-rendered so search engines can index useful content without depending on client-side rendering.
-                    </p>
+                    <p>Public pages are server-rendered so search engines can index useful content without depending on client-side rendering.</p>
                 </article>
-
                 <article class="feature-panel">
                     <h3>Account-based usage</h3>
-                    <p>
-                        Planned sign-in, sign-up, session management, and Google login support make the product ready for multi-user deployment.
-                    </p>
+                    <p>Planned sign-in, sign-up, session management, and Google login support make the product ready for multi-user deployment.</p>
                 </article>
             </div>
         </div>
@@ -160,25 +114,10 @@
                 <p class="eyebrow">How it works</p>
                 <h2>Simple scan flow</h2>
             </div>
-
             <div class="how-steps">
-                <article class="step-card">
-                    <span class="step-index">01</span>
-                    <h3>Upload image</h3>
-                    <p>Submit an image for AI-assisted forensic screening through the protected scan flow.</p>
-                </article>
-
-                <article class="step-card">
-                    <span class="step-index">02</span>
-                    <h3>Run inference</h3>
-                    <p>The Spring Boot app sends the image to the Flask inference API and receives class probabilities.</p>
-                </article>
-
-                <article class="step-card">
-                    <span class="step-index">03</span>
-                    <h3>Review result</h3>
-                    <p>Users see the likely label, confidence, and review guidance instead of an overconfident hard verdict.</p>
-                </article>
+                <article class="step-card"><span class="step-index">01</span><h3>Upload image</h3><p>Submit an image for AI-assisted forensic screening through the protected scan flow.</p></article>
+                <article class="step-card"><span class="step-index">02</span><h3>Run inference</h3><p>The Spring Boot app sends the image to the Flask inference API and receives class probabilities.</p></article>
+                <article class="step-card"><span class="step-index">03</span><h3>Review result</h3><p>Users see the likely label, confidence, and review guidance instead of an overconfident hard verdict.</p></article>
             </div>
         </div>
     </section>
@@ -195,6 +134,6 @@
             </div>
         </div>
     </section>
-
 </section>
+</body>
 </html>

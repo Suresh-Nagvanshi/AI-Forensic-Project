@@ -1,2 +1,112 @@
 <!DOCTYPE html>
-<html lang="en"><body><main>Signup page placeholder</main></body></html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/base}">
+<body>
+<section layout:fragment="content" class="auth-page">
+    <section class="auth-section">
+        <div class="container auth-grid">
+            <div class="auth-copy">
+                <p class="eyebrow">Create your workspace</p>
+                <h1>Start scanning suspicious images with a secure account.</h1>
+                <p class="auth-text">
+                    Create an account to access AI-assisted image screening, structured scan results, and protected review workflows.
+                </p>
+
+                <ul class="auth-points" role="list">
+                    <li>Personal access to secure forensic scan flows.</li>
+                    <li>Ready for future scan history and saved results.</li>
+                    <li>Built for responsible media review and triage.</li>
+                </ul>
+            </div>
+
+            <div class="auth-card">
+                <div class="auth-card-header">
+                    <h2>Create account</h2>
+                    <p>Set up your AI Forensic access.</p>
+                </div>
+
+                <form th:action="@{/signup}" th:object="${signupRequest}" method="post" class="auth-form">
+                    <div th:if="${signupError}" class="auth-alert auth-alert-error" th:text="${signupError}"></div>
+
+                    <div class="form-group">
+                        <label for="fullName">Full name</label>
+                        <input
+                                type="text"
+                                id="fullName"
+                                th:field="*{fullName}"
+                                placeholder="Enter your full name"
+                                autocomplete="name"
+                                required>
+                        <small class="field-error"
+                               th:if="${#fields.hasErrors('fullName')}"
+                               th:errors="*{fullName}"></small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input
+                                type="email"
+                                id="email"
+                                th:field="*{email}"
+                                placeholder="Enter your email"
+                                autocomplete="email"
+                                required>
+                        <small class="field-error"
+                               th:if="${#fields.hasErrors('email')}"
+                               th:errors="*{email}"></small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="signupPassword">Password</label>
+                        <input
+                                type="password"
+                                id="signupPassword"
+                                th:field="*{password}"
+                                placeholder="Create a password"
+                                autocomplete="new-password"
+                                required>
+                        <small class="field-error"
+                               th:if="${#fields.hasErrors('password')}"
+                               th:errors="*{password}"></small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirm password</label>
+                        <input
+                                type="password"
+                                id="confirmPassword"
+                                th:field="*{confirmPassword}"
+                                placeholder="Re-enter your password"
+                                autocomplete="new-password"
+                                required>
+                        <small class="field-error"
+                               th:if="${#fields.hasErrors('confirmPassword')}"
+                               th:errors="*{confirmPassword}"></small>
+                    </div>
+
+                    <label class="checkbox-row checkbox-block">
+                        <input type="checkbox" name="termsAccepted" required>
+                        <span>I agree to responsible platform usage and review-first interpretation of results.</span>
+                    </label>
+
+                    <button type="submit" class="btn btn-primary btn-block">Create account</button>
+                </form>
+
+                <div class="auth-divider"><span>or</span></div>
+
+                <a th:href="@{/oauth2/authorization/google}" class="btn btn-google">
+                    Sign up with Google
+                </a>
+
+                <p class="auth-switch">
+                    Already have an account?
+                    <a th:href="@{/login}">Sign in</a>
+                </p>
+            </div>
+        </div>
+    </section>
+</section>
+</body>
+</html>

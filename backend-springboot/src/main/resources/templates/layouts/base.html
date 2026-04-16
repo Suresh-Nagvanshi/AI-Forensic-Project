@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -24,13 +25,14 @@
     <link rel="icon" type="image/png" th:href="@{/favicon/favicon.png}">
     <link rel="stylesheet" th:href="@{/css/main.css}">
     <link rel="stylesheet" th:href="@{/css/landing.css}">
+    <link rel="stylesheet" th:href="@{/css/auth.css}">
     <script defer th:src="@{/js/main.js}"></script>
 </head>
 
 <body th:class="${pageClass}">
     <a class="skip-link" href="#main-content">Skip to content</a>
 
-    <div th:replace="~{layouts/header-public :: headerPublic}"></div>
+    <div th:replace="~{layouts/header :: header}"></div>
 
     <main id="main-content">
         <section layout:fragment="content">

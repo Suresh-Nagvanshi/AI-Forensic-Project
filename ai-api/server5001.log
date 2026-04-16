@@ -1,0 +1,9 @@
+ * Serving Flask app 'app'
+ * Debug mode: off
+PREDICT: request start
+PREDICT: saved upload C:\Users\iamsu\OneDrive\Desktop\AI_Forensic_Project\ai-api\uploads\131d9c245fb1405db5423a15342ba926.jpg
+PREDICT: face count 1
+PREDICT: processing face 1
+PREDICT: prediction {'prediction': 'deepfake', 'confidence': 0.28670230507850647, 'pred_index': 0, 'all_scores': {'deepfake': 0.28670230507850647, 'edited': 0.20207849144935608, 'gan': 0.25414925813674927, 'real': 0.2570699155330658}}
+PREDICT: emotion {'dominant_emotion': 'happy', 'emotion_scores': {'angry': 2.3282358225232e-17, 'disgust': 1.1939478253787842e-30, 'fear': 8.0982336477194465e-19, 'happy': 99.99971008300781, 'sad': 1.50936121240397e-14, 'surprise': 6.94059219819021e-12, 'neutral': 0.0002882650005631149}}
+PREDICT: gradcam input shape (192, 149, 3)

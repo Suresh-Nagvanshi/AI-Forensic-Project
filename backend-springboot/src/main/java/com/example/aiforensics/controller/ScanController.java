@@ -20,7 +20,7 @@ public class ScanController {
         this.predictionService = predictionService;
     }
 
-    @GetMapping({"/", "/scan", "/scan/upload"})
+    @GetMapping({"/scan", "/scan/upload"})
     public String showUploadPage() {
         return "scan/upload";
     }

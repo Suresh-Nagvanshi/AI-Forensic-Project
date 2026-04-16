@@ -1,4 +1,11 @@
 flask
+flask-cors
 tensorflow
-pillow
+tf-keras
 numpy
+pillow
+opencv-python
+matplotlib
+ultralytics
+deepface
+scikit-learn

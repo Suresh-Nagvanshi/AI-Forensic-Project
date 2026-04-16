@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<body>
+<header th:fragment="header" class="site-header">
+    <div class="container header-inner">
+        <a th:href="@{/}" class="brand">
+            <span class="brand-mark">AI</span>
+            <span class="brand-text">Forensic</span>
+        </a>
+
+        <nav class="site-nav" aria-label="Primary navigation">
+            <a th:href="@{/}" class="nav-link">Home</a>
+            <a th:href="@{/about}" class="nav-link">About</a>
+            <a th:href="@{/contact}" class="nav-link">Contact</a>
+            <a th:href="@{/feedback}" class="nav-link">Feedback</a>
+
+            <a th:href="@{/scan}"
+               class="nav-link nav-link-highlight"
+               sec:authorize="isAuthenticated()">Scan</a>
+
+            <a th:href="@{/login}"
+               class="nav-link"
+               sec:authorize="isAnonymous()">Login</a>
+
+            <a th:href="@{/signup}"
+               class="nav-link"
+               sec:authorize="isAnonymous()">Sign up</a>
+
+            <span class="nav-user"
+                  sec:authorize="isAuthenticated()"
+                  sec:authentication="name"></span>
+
+            <form th:action="@{/logout}" method="post"
+                  sec:authorize="isAuthenticated()" class="logout-form">
+                <button type="submit" class="nav-link nav-link-button">Logout</button>
+            </form>
+        </nav>
+    </div>
+</header>
+</body>
+</html>

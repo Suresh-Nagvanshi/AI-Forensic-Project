@@ -1,2 +1,87 @@
 <!DOCTYPE html>
-<html lang="en"><body><main>Login page placeholder</main></body></html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/base}">
+<body>
+<section layout:fragment="content" class="auth-page">
+    <section class="auth-section">
+        <div class="container auth-grid">
+            <div class="auth-copy">
+                <p class="eyebrow">Secure account access</p>
+                <h1>Sign in to continue your forensic review workflow.</h1>
+                <p class="auth-text">
+                    Access protected image scanning, review results, and account-based forensic workflows from one secure workspace.
+                </p>
+
+                <ul class="auth-points" role="list">
+                    <li>Access scan history and protected workflows.</li>
+                    <li>Review AI-assisted image classifications securely.</li>
+                    <li>Built for screening support, not blind final verdicts.</li>
+                </ul>
+            </div>
+
+            <div class="auth-card">
+                <div th:if="${param.error}" class="auth-alert auth-alert-error">
+                    Invalid email or password. Please try again.
+                </div>
+
+                <div th:if="${param.logout}" class="auth-alert auth-alert-success">
+                    You have been signed out successfully.
+                </div>
+
+                <div class="auth-card-header">
+                    <h2>Welcome back</h2>
+                    <p>Sign in to access your dashboard.</p>
+                </div>
+
+                <form th:action="@{/login}" method="post" class="auth-form">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                placeholder="Enter your email"
+                                autocomplete="email"
+                                required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                placeholder="Enter your password"
+                                autocomplete="current-password"
+                                required>
+                    </div>
+
+                    <div class="form-meta">
+                        <label class="checkbox-row">
+                            <input type="checkbox" name="remember-me">
+                            <span>Remember me</span>
+                        </label>
+                        <a th:href="@{/forgot-password}" class="text-link">Forgot password?</a>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+                </form>
+
+                <div class="auth-divider"><span>or</span></div>
+
+                <a th:href="@{/oauth2/authorization/google}" class="btn btn-google">
+                    Continue with Google
+                </a>
+
+                <p class="auth-switch">
+                    Don’t have an account?
+                    <a th:href="@{/signup}">Create one</a>
+                </p>
+            </div>
+        </div>
+    </section>
+</section>
+</body>
+</html>
