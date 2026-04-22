@@ -9,6 +9,7 @@ ai-api/.env
 ai-api/model/*.keras
 ai-api/uploads/
 ai-api/temp/
+ai-api/outputs/annotated
 
 # Java
 target/

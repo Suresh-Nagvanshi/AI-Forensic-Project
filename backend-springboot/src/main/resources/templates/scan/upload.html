@@ -4,27 +4,143 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/base}">
 <head>
-    <title>Scan Image</title>
+    <title>Scan Image | AI Forensic</title>
+    <style>
+        .upload-card {
+            background: rgba(255, 255, 255, 0.92);
+            border: 1px solid rgba(15, 23, 42, 0.08);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(15, 23, 42, 0.08);
+            backdrop-filter: blur(10px);
+            text-align: center;
+            max-width: 600px;
+            margin: 40px auto;
+        }
+
+        .upload-area {
+            border: 2px dashed #cbd5e1;
+            border-radius: 16px;
+            padding: 40px 20px;
+            margin: 24px 0;
+            background: #f8fafc;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .upload-area:hover, .upload-area.dragover {
+            border-color: #0f62fe;
+            background: #f0f6ff;
+        }
+
+        .upload-area input[type="file"] {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .upload-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .upload-text {
+            color: #475569;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+
+        .upload-hint {
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        .image-preview {
+            max-width: 100%;
+            border-radius: 12px;
+            margin-top: 20px;
+            display: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+    </style>
 </head>
 <body>
 <section layout:fragment="content" class="scan-upload-section">
     <div class="container">
-        <h1>Upload Image for Forensic Analysis</h1>
-        <p>Select an image and run the AI forensic scan.</p>
+        <div class="upload-card">
+            <h1>Forensic Image Analysis</h1>
+            <p>Upload an image to detect deepfakes, GANs, or manual edits.</p>
 
-        <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+            <div th:if="${error}" class="error" th:text="${error}"></div>
 
-        <form th:action="@{/scan/predict}" method="post" enctype="multipart/form-data">
-            <div>
-                <label for="file">Choose image</label>
-                <input id="file" type="file" name="file" accept=".png,.jpg,.jpeg,image/png,image/jpeg" required>
-            </div>
+            <form th:action="@{/scan/predict}" method="post" enctype="multipart/form-data" id="uploadForm">
+                <div class="upload-area" id="dropArea">
+                    <span class="upload-icon">📁</span>
+                    <div class="upload-text"><strong>Click to upload</strong> or drag and drop</div>
+                    <div class="upload-hint">PNG, JPG or JPEG (max. 10MB)</div>
+                    <input id="file" type="file" name="file" accept=".png,.jpg,.jpeg,image/png,image/jpeg" required>
+                    <img id="preview" class="image-preview" alt="Preview">
+                </div>
 
-            <div style="margin-top: 16px;">
-                <button type="submit">Analyze Image</button>
-            </div>
-        </form>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Run AI Scan</button>
+            </form>
+        </div>
     </div>
+
+    <script>
+        const fileInput = document.getElementById('file');
+        const dropArea = document.getElementById('dropArea');
+        const preview = document.getElementById('preview');
+
+        fileInput.addEventListener('change', function() {
+            if (this.files && this.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                }
+                reader.readAsDataURL(this.files[0]);
+            }
+        });
+
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dropArea.addEventListener(eventName, preventDefaults, false);
+        });
+
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropArea.addEventListener(eventName, () => dropArea.classList.add('dragover'), false);
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropArea.addEventListener(eventName, () => dropArea.classList.remove('dragover'), false);
+        });
+
+        dropArea.addEventListener('drop', handleDrop, false);
+
+        function handleDrop(e) {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            fileInput.files = files;
+            
+            if (files && files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    preview.src = event.target.result;
+                    preview.style.display = 'block';
+                }
+                reader.readAsDataURL(files[0]);
+            }
+        }
+    </script>
 </section>
 </body>
 </html>

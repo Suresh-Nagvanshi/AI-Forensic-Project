@@ -8,23 +8,29 @@
             <div class="footer-brand-block">
                 <a class="footer-brand" th:href="@{/}" aria-label="AI Forensic home">
                     <span class="brand-mark" aria-hidden="true">
-                        <svg viewBox="0 0 32 32" width="26" height="26" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="16" cy="16" r="11" stroke="currentColor" stroke-width="2"/>
-                            <path d="M10 18.5C12 14 20 14 22 18.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                            <path d="M13 12h.01M19 12h.01" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                        <svg viewBox="0 0 32 32" width="28" height="28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="16" cy="16" r="11" stroke="url(#footer-logo-grad)" stroke-width="2"/>
+                            <path d="M10 18.5C12 14 20 14 22 18.5" stroke="url(#footer-logo-grad)" stroke-width="2" stroke-linecap="round"/>
+                            <path d="M13 12h.01M19 12h.01" stroke="url(#footer-logo-grad)" stroke-width="3" stroke-linecap="round"/>
+                            <defs>
+                                <linearGradient id="footer-logo-grad" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#4fd1c5" />
+                                    <stop offset="1" stop-color="#3b82f6" />
+                                </linearGradient>
+                            </defs>
                         </svg>
                     </span>
                     <span class="footer-brand-copy">
-                        <strong>AI Forensic</strong>
-                        <span>Deepfake & image screening</span>
+                        <strong style="color: #f8fafc; font-size: 1.1rem;">AI Forensic</strong>
+                        <span style="color: #94a3b8; font-size: 0.9rem;">Deepfake & image screening</span>
                     </span>
                 </a>
-                <p class="footer-description">AI-assisted screening for deepfake, edited, GAN-generated, and real-image review workflows.</p>
+                <p class="footer-description" style="color: #cbd5e1;">AI-assisted screening for deepfake, edited, GAN-generated, and real-image review workflows.</p>
             </div>
 
             <div class="footer-columns">
                 <div class="footer-column">
-                    <p class="footer-heading">Navigate</p>
+                    <p class="footer-heading" style="color: #f8fafc; font-weight: 700;">Navigate</p>
                     <nav class="footer-nav footer-nav-vertical" aria-label="Footer">
                         <a th:href="@{/about}">About</a>
                         <a th:href="@{/contact}">Contact</a>
@@ -34,7 +40,7 @@
                 </div>
 
                 <div class="footer-column">
-                    <p class="footer-heading">Connect</p>
+                    <p class="footer-heading" style="color: #f8fafc; font-weight: 700;">Connect</p>
                     <nav class="footer-social" aria-label="Social links">
                         <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">Instagram</a>
                         <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
@@ -45,9 +51,9 @@
             </div>
         </div>
 
-        <div class="footer-bottom">
-            <p>© 2026 AI Forensic. All rights reserved.</p>
-            <p class="footer-note">Built for responsible media screening and human review.</p>
+        <div class="footer-bottom" style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 24px; margin-top: 40px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+            <p style="color: #94a3b8; margin: 0;">© 2026 AI Forensic. All rights reserved.</p>
+            <p class="footer-note" style="color: #64748b; margin: 0;">Built for responsible media screening and human review.</p>
         </div>
     </div>
 </footer>
