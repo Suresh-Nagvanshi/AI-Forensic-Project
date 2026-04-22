@@ -12,8 +12,13 @@ LAST_CONV_LAYER_NAME = "top_conv"
 def preprocess_for_gradcam(face_bgr):
     face_rgb = cv2.cvtColor(face_bgr, cv2.COLOR_BGR2RGB)
     face_rgb = cv2.resize(face_rgb, (IMG_SIZE, IMG_SIZE))
-    face_rgb = face_rgb.astype("float32") / 255.0
-    return np.expand_dims(face_rgb, axis=0)
+    try:
+        from tensorflow.keras.applications.efficientnet import preprocess_input
+        face_rgb = preprocess_input(face_rgb.astype("float32"))
+    except ImportError:
+        face_rgb = face_rgb.astype("float32")
+    face_rgb = np.expand_dims(face_rgb, axis=0)
+    return face_rgb
 
 
 def _find_layer_recursive(model, target_layer_name):

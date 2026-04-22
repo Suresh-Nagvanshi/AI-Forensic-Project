@@ -92,7 +92,9 @@ def predict():
             print('PREDICT: processing face', idx)
             crop = face["crop"]
 
-            prediction_result = predict_face(crop)
+            # Use original_image for prediction because the model was trained on full frames,
+            # whereas emotion is fine on cropped faces.
+            prediction_result = predict_face(original_image)
             print('PREDICT: prediction', prediction_result)
             emotion_result = analyze_emotion(crop)
             print('PREDICT: emotion', emotion_result)
@@ -101,8 +103,8 @@ def predict():
             heatmap_url = None
 
             try:
-                print('PREDICT: gradcam input shape', crop.shape)
-                heatmap_input = preprocess_for_gradcam(crop)
+                print('PREDICT: gradcam input shape', original_image.shape)
+                heatmap_input = preprocess_for_gradcam(original_image)
                 heatmap = make_gradcam_heatmap(
                     heatmap_input,
                     model,
@@ -112,7 +114,7 @@ def predict():
 
                 heatmap_filename = f"heatmap_face_{idx}_{uuid.uuid4().hex}.jpg"
                 heatmap_path = os.path.join(HEATMAP_FOLDER, heatmap_filename)
-                save_gradcam_overlay(crop, heatmap, heatmap_path)
+                save_gradcam_overlay(original_image, heatmap, heatmap_path)
                 heatmap_url = f"/outputs/heatmaps/{heatmap_filename}"
             except Exception as heatmap_error:
                 traceback.print_exc()

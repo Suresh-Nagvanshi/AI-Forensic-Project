@@ -1,83 +1,50 @@
 package com.example.aiforensics.service.scan;
 
-import com.example.aiforensics.dto.scan.PredictionResponseDto;
-import org.springframework.beans.factory.annotation.Value;
+import com.example.aiforensics.dto.scan.FaceResultDto;
+import com.example.aiforensics.dto.scan.ForensicReportDto;
 import org.springframework.core.io.ByteArrayResource;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 @Service
 public class PredictionService {
 
-    @Value("${flask.api.url}")
-    private String flaskApiUrl;
+    private static final String FLASK_BASE = "http://127.0.0.1:5000";
+    private final RestTemplate rest = new RestTemplate();
 
-    private final RestTemplate restTemplate = new RestTemplate();
-
-    public PredictionResponseDto getPrediction(MultipartFile file) throws IOException {
-        ByteArrayResource fileAsResource = new ByteArrayResource(file.getBytes()) {
-            @Override
-            public String getFilename() {
-                return file.getOriginalFilename();
-            }
+    public ForensicReportDto predict(MultipartFile file) throws Exception {
+        ByteArrayResource res = new ByteArrayResource(file.getBytes()) {
+            @Override public String getFilename() { return file.getOriginalFilename(); }
         };
 
         MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
-        body.add("file", fileAsResource);
+        HttpHeaders fh = new HttpHeaders();
+        fh.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+        body.add("file", new HttpEntity<>(res, fh));
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);
 
-        HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
-        ResponseEntity<Map> response = restTemplate.exchange(flaskApiUrl, HttpMethod.POST, requestEntity, Map.class);
+        ResponseEntity<ForensicReportDto> resp = rest.exchange(
+            FLASK_BASE + "/predict", HttpMethod.POST,
+            new HttpEntity<>(body, headers), ForensicReportDto.class);
 
-        if (response.getBody() == null) {
-            throw new IllegalStateException("Empty response from Flask API");
-        }
+        ForensicReportDto report = resp.getBody();
+        if (report == null) throw new RuntimeException("Empty response from AI API");
 
-        Map<String, Object> payload = response.getBody();
-        PredictionResponseDto prediction = new PredictionResponseDto();
-        prediction.setPredictedClass(String.valueOf(payload.get("predicted_class")));
-        prediction.setConfidence(asDouble(payload.get("confidence")));
-        prediction.setPredictedIndex(asInteger(payload.get("predicted_index")));
-        prediction.setNumClasses(asInteger(payload.get("num_classes")));
-        prediction.setAllPredictions(convertPredictions(payload.get("all_predictions")));
-        return prediction;
-    }
+        // Fix relative URLs → absolute so Thymeleaf <img> works
+        if (report.getAnnotatedImageUrl() != null && report.getAnnotatedImageUrl().startsWith("/"))
+            report.setAnnotatedImageUrl(FLASK_BASE + report.getAnnotatedImageUrl());
 
-    private Map<String, Double> convertPredictions(Object rawPredictions) {
-        Map<String, Double> normalized = new LinkedHashMap<>();
-        if (rawPredictions instanceof Map<?, ?> map) {
-            for (Map.Entry<?, ?> entry : map.entrySet()) {
-                normalized.put(String.valueOf(entry.getKey()), asDouble(entry.getValue()));
-            }
-        }
-        return normalized;
-    }
+        if (report.getFaces() != null)
+            for (FaceResultDto f : report.getFaces())
+                if (f.getHeatmapUrl() != null && f.getHeatmapUrl().startsWith("/"))
+                    f.setHeatmapUrl(FLASK_BASE + f.getHeatmapUrl());
 
-    private double asDouble(Object value) {
-        if (value instanceof Number number) {
-            return number.doubleValue();
-        }
-        return Double.parseDouble(String.valueOf(value));
-    }
-
-    private int asInteger(Object value) {
-        if (value instanceof Number number) {
-            return number.intValue();
-        }
-        return Integer.parseInt(String.valueOf(value));
+        return report;
     }
 }

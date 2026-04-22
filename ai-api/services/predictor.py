@@ -40,11 +40,13 @@ def get_model():
                     classifier_model = standalone_keras.models.load_model(MODEL_PATH, compile=False)
                 except Exception as second_error:
                     raise RuntimeError(
-                        f"Failed to load model with tf.keras and keras. tf.keras error: {first_error}; keras error: {second_error}"
+                        f"Failed to load model with tf.keras and keras. "
+                        f"tf.keras error: {first_error}; keras error: {second_error}"
                     ) from second_error
             else:
                 raise RuntimeError(
-                    f"Failed to load model with tf.keras. Install standalone keras or use a compatible TensorFlow version. Original error: {first_error}"
+                    f"Failed to load model with tf.keras. Install standalone keras or use a "
+                    f"compatible TensorFlow version. Original error: {first_error}"
                 ) from first_error
     return classifier_model
 
@@ -60,17 +62,30 @@ def get_class_names():
 
 
 def preprocess_face(face_bgr):
+    """
+    Preprocess a face crop for EfficientNetB0 inference.
+    """
     if face_bgr is None or face_bgr.size == 0:
         raise ValueError("Empty face image received")
 
     face_rgb = cv2.cvtColor(face_bgr, cv2.COLOR_BGR2RGB)
     face_rgb = cv2.resize(face_rgb, (IMG_SIZE, IMG_SIZE))
-    face_rgb = face_rgb.astype("float32") / 255.0
-    face_rgb = np.expand_dims(face_rgb, axis=0)
+    
+    try:
+        from tensorflow.keras.applications.efficientnet import preprocess_input
+        face_rgb = preprocess_input(face_rgb.astype("float32"))
+    except ImportError:
+        face_rgb = face_rgb.astype("float32")
+        
+    face_rgb = np.expand_dims(face_rgb, axis=0)               # add batch dim
     return face_rgb
 
 
 def predict_face(face_bgr):
+    """
+    Run deepfake classifier on a single face crop (BGR numpy array).
+    Returns prediction label, confidence, pred index, and all class scores.
+    """
     model = get_model()
     labels = get_class_names()
 
@@ -85,5 +100,5 @@ def predict_face(face_bgr):
         "prediction": pred_label,
         "confidence": pred_conf,
         "pred_index": pred_index,
-        "all_scores": {labels[i]: float(preds[i]) for i in range(len(labels))}
+        "all_scores": {labels[i]: float(preds[i]) for i in range(len(labels))},
     }

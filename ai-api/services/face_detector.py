@@ -35,10 +35,13 @@ def detect_faces(image_path, conf=0.35):
             x1, y1, x2, y2 = map(int, box.xyxy[0].tolist())
             score = float(box.conf[0])
 
-            x1 = max(0, x1)
-            y1 = max(0, y1)
-            x2 = min(image.shape[1], x2)
-            y2 = min(image.shape[0], y2)
+            pad_w = int((x2 - x1) * 0.10)
+            pad_h = int((y2 - y1) * 0.10)
+
+            x1 = max(0, x1 - pad_w)
+            y1 = max(0, y1 - pad_h)
+            x2 = min(image.shape[1], x2 + pad_w)
+            y2 = min(image.shape[0], y2 + pad_h)
 
             crop = image[y1:y2, x1:x2]
             if crop is None or crop.size == 0:

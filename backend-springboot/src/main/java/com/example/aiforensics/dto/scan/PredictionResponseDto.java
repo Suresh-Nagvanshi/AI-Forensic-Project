@@ -1,52 +1,72 @@
 package com.example.aiforensics.dto.scan;
 
-import java.util.Map;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class PredictionResponseDto {
 
-    private String predictedClass;
-    private double confidence;
-    private int predictedIndex;
-    private int numClasses;
-    private Map<String, Double> allPredictions;
+    @JsonProperty("overall_prediction")
+    private String overallPrediction;
 
-    public String getPredictedClass() {
-        return predictedClass;
+    @JsonProperty("overall_confidence")
+    private double overallConfidence;
+
+    @JsonProperty("risk_level")
+    private String riskLevel;
+
+    @JsonProperty("total_faces")
+    private int totalFaces;
+
+    @JsonProperty("annotated_image_url")
+    private String annotatedImageUrl;
+
+    @JsonProperty("report_message")
+    private String reportMessage;
+
+    public String getOverallPrediction() {
+        return overallPrediction;
     }
 
-    public void setPredictedClass(String predictedClass) {
-        this.predictedClass = predictedClass;
+    public void setOverallPrediction(String overallPrediction) {
+        this.overallPrediction = overallPrediction;
     }
 
-    public double getConfidence() {
-        return confidence;
+    public double getOverallConfidence() {
+        return overallConfidence;
     }
 
-    public void setConfidence(double confidence) {
-        this.confidence = confidence;
+    public void setOverallConfidence(double overallConfidence) {
+        this.overallConfidence = overallConfidence;
     }
 
-    public int getPredictedIndex() {
-        return predictedIndex;
+    public String getRiskLevel() {
+        return riskLevel;
     }
 
-    public void setPredictedIndex(int predictedIndex) {
-        this.predictedIndex = predictedIndex;
+    public void setRiskLevel(String riskLevel) {
+        this.riskLevel = riskLevel;
     }
 
-    public int getNumClasses() {
-        return numClasses;
+    public int getTotalFaces() {
+        return totalFaces;
     }
 
-    public void setNumClasses(int numClasses) {
-        this.numClasses = numClasses;
+    public void setTotalFaces(int totalFaces) {
+        this.totalFaces = totalFaces;
     }
 
-    public Map<String, Double> getAllPredictions() {
-        return allPredictions;
+    public String getAnnotatedImageUrl() {
+        return annotatedImageUrl;
     }
 
-    public void setAllPredictions(Map<String, Double> allPredictions) {
-        this.allPredictions = allPredictions;
+    public void setAnnotatedImageUrl(String annotatedImageUrl) {
+        this.annotatedImageUrl = annotatedImageUrl;
+    }
+
+    public String getReportMessage() {
+        return reportMessage;
+    }
+
+    public void setReportMessage(String reportMessage) {
+        this.reportMessage = reportMessage;
     }
 }
